@@ -9,5 +9,7 @@ namespace ImageMagick
     {
         public static bool Is64Bit =>
             IntPtr.Size == 8;
+        public static bool IsArm64 =>
+            System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture == System.Runtime.InteropServices.Architecture.Arm64;
     }
 }

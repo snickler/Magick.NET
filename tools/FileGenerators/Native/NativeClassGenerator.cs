@@ -129,10 +129,7 @@ namespace FileGenerator.Native
 
         private void WriteNativeMethods(string platform)
         {
-            if (platform == "X64")
-                WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
-            else
-                WriteLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
+            WriteLine($"#if PLATFORM_{platform.ToLower()} || PLATFORM_AnyCPU");
             WriteLine("public static class " + platform);
             WriteStartColon();
             WriteNativeMethodsStaticConstructor(platform);
@@ -159,6 +156,9 @@ namespace FileGenerator.Native
 
         private void WriteX86()
             => WriteNativeMethods("X86");
+
+        private void WriteARM64()
+            => WriteNativeMethods("ARM64");        
 
         private string GetDllImport(string platform)
            => "[DllImport(NativeLibrary." + platform + "Name, CallingConvention = CallingConvention.Cdecl)]";
